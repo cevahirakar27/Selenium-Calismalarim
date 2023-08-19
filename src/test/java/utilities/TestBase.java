@@ -24,7 +24,7 @@ public  class TestBase {
 
     @After
     public void tearDown() throws Exception {
-       driver.close();
+      // driver.quit();
     }
 
     //HARD WAIT
@@ -46,5 +46,10 @@ public  class TestBase {
     public void selectIndex(WebElement ddm,int index){
         Select select=new Select(ddm);
         select.selectByIndex(index);
+    }
+
+    //WindowHandles
+    public void window(int index){
+        driver.switchTo().window(driver.getWindowHandles().toArray()[index].toString());
     }
 }
