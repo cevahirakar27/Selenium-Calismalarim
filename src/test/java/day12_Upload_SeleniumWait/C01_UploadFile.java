@@ -33,8 +33,5 @@ public class C01_UploadFile extends TestBase {
         Assert.assertEquals("File Uploaded!",fileUpload);
 
 
-
-
-
     }
 }

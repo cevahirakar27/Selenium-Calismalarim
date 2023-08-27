@@ -1,19 +1,31 @@
 package utilities;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 
 public  class TestBase {
+
+    //rapor methodu icin
+  protected ExtentReports extentReport;//-->raporlamayı başlatır
+  protected ExtentHtmlReporter extentHtmlReporter;//-->Html formatında rapor oluşturur
+  protected ExtentTest extentTest;//-->Test adımlarına bilgi eklenir
 
 
     protected WebDriver driver;
@@ -85,6 +97,49 @@ public  class TestBase {
             throw new RuntimeException(e);
         }
     }
+
+    //ScrrenShot
+    public void ekranResmi(){
+        String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
+        String dosyaYolu ="target/ekranGoruntusu/screenShot"+tarih +".png";
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        try {
+            FileUtils.copyFile(ts.getScreenshotAs(OutputType.FILE),new File(dosyaYolu));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    public void webElementEkranGoruntusu(WebElement element){
+
+        //sonuc yazisi webelementiinin resmini alalim.
+
+        String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
+        String dosyaYolu ="target/WebElementEkranGoruntusu/screenShot"+tarih +".png";
+        WebElement sonucYazisi = driver.findElement(By.xpath("(//*[@class='a-section a-spacing-small a-spacing-top-small'])[1]"));
+        try {
+            FileUtils.copyFile(element.getScreenshotAs(OutputType.FILE),new File(dosyaYolu));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+      //Extent Report
+    public void rapor(String browser,String reportName){
+
+        extentReport = new ExtentReports();
+        String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
+        String dosyaYolu = "target/extentReport/report" + tarih + ".html";
+        extentHtmlReporter = new ExtentHtmlReporter(dosyaYolu);
+        extentReport.attachReporter(extentHtmlReporter);
+        //Raporda gözükmesini istediğimiz bilgiler
+        extentReport.setSystemInfo("Tester", "Cevahir");
+        extentReport.setSystemInfo("browser", browser);
+        extentHtmlReporter.config().setDocumentTitle("ExtentReport");
+        extentHtmlReporter.config().setReportName(reportName);
+
+    }
+
 
 }
 
