@@ -37,7 +37,7 @@ public class C03_Excel {
         //5) Belirttigimiz sayfadaki satir bilgisini secmemiz gerekir.
         Row row = sheet.getRow(0);  //index 0 dan baslar.
 
-        //6) Belirttigimz satirdaki hucre bilgisin secmemiz gerekir
+        //6) Belirttigimz satirdaki hucre bilgisini secmemiz gerekir
         Cell cell= row.getCell(0);
 
 
