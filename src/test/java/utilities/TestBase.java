@@ -23,9 +23,9 @@ import java.util.Date;
 public  class TestBase {
 
     //rapor methodu icin
-  protected ExtentReports extentReport;//-->raporlamayı başlatır
-  protected ExtentHtmlReporter extentHtmlReporter;//-->Html formatında rapor oluşturur
-  protected ExtentTest extentTest;//-->Test adımlarına bilgi eklenir
+    protected ExtentReports extentReport;//-->raporlamayı başlatır
+    protected ExtentHtmlReporter extentHtmlReporter;//-->Html formatında rapor oluşturur
+    protected ExtentTest extentTest;//-->Test adımlarına bilgi eklenir
 
 
     protected WebDriver driver;
@@ -99,33 +99,34 @@ public  class TestBase {
     }
 
     //ScrrenShot
-    public void ekranResmi(){
+    public void ekranResmi() {
         String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
-        String dosyaYolu ="target/ekranGoruntusu/screenShot"+tarih +".png";
+        String dosyaYolu = "target/ekranGoruntusu/screenShot" + tarih + ".png";
         TakesScreenshot ts = (TakesScreenshot) driver;
         try {
-            FileUtils.copyFile(ts.getScreenshotAs(OutputType.FILE),new File(dosyaYolu));
+            FileUtils.copyFile(ts.getScreenshotAs(OutputType.FILE), new File(dosyaYolu));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
     }
-    public void webElementEkranGoruntusu(WebElement element){
+
+    public void webElementEkranGoruntusu(WebElement element) {
 
         //sonuc yazisi webelementiinin resmini alalim.
 
         String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
-        String dosyaYolu ="target/WebElementEkranGoruntusu/screenShot"+tarih +".png";
+        String dosyaYolu = "target/WebElementEkranGoruntusu/screenShot" + tarih + ".png";
         WebElement sonucYazisi = driver.findElement(By.xpath("(//*[@class='a-section a-spacing-small a-spacing-top-small'])[1]"));
         try {
-            FileUtils.copyFile(element.getScreenshotAs(OutputType.FILE),new File(dosyaYolu));
+            FileUtils.copyFile(element.getScreenshotAs(OutputType.FILE), new File(dosyaYolu));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-      //Extent Report
-    public void rapor(String browser,String reportName){
+    //Extent Report
+    public void rapor(String browser, String reportName) {
 
         extentReport = new ExtentReports();
         String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
@@ -140,7 +141,42 @@ public  class TestBase {
 
     }
 
+    //JS Click Method
+    public void jsclick(WebElement element) {
+        try {
+            element.click();
+        } catch (Exception e) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", element);
+        }
+
+    }
+
+    //JS scrollTo Element
+    public void jsScroll(WebElement element){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);",element);
+    }
+
+
+    //JS scrollToEnd
+    public void jsScrollEnd(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+    }
+    //JS scrollToHome
+    public void jsScrollHome(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+    }
+
+
+    //JS SendKeys
+    public void jsSendKeys(WebElement element,String value){
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].value='"+value+"'",element);
+
+    }
 
 }
-
-

@@ -3,6 +3,7 @@ package day16_Excel;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.Test;
+import org.openqa.selenium.interactions.Actions;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,25 +32,7 @@ public class C03_WriteExcel {
         workbook.write(fos);
          fos.close();
          workbook.close();
+
     }
 
-    //-1.satirdaki 2.hucreye gidelim ve yazdiralim
-    //-1.satirdaki 2.hucreyi bir string degiskene atayalim ve yazdiralim
-    //-2.satir 4.cell’in afganistan’in baskenti oldugunu test  edelim
-    //-Satir sayisini bulalim
-    //-Fiziki olarak kullanilan satir sayisini bulun
-    //-Ingilizce Ulke isimleri ve baskentleri bir map olarak kaydedelim
-
-
-
-
-    //1)Yeni bir Class olusturalim WriteExcel
-    //2)Yeni bir test method olusturalim writeExcelTest()
-    //3)Adimlari takip ederek 1.satira kadar gidelim
-    //4)5.hucreye yeni bir cell olusturalim
-    //5)Olusturdugumuz hucreye “Nufus” yazdiralim
-    //6)2.satir nufus kolonuna 1500000 yazdiralim
-    //7)10.satir nufus kolonuna 250000 yazdiralim
-    //8)15.satir nufus kolonuna 54000 yazdiralim 9)Dosyayi kaydedelim
-    //10)Dosyayi kapatalim.
 }
