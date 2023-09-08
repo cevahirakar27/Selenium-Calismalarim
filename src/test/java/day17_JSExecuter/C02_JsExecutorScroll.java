@@ -50,5 +50,6 @@ public class C02_JsExecutorScroll extends TestBase {
 
         //sayfanın en ustune scroll yapalım
        jsScrollHome();
+       //method olusturduk
     }
 }
